@@ -1,15 +1,25 @@
+## Algorithm
 def bubble_sort(array):
-    change = 1
-    while change:
-        change = 0
-        for i in range(0, len(array) - 1):
-            if array[i] > array[i + 1]:
-                temp = array[i + 1]
-                array[i + 1] = array[i]
-                array[i] = temp
-                change = 1
+    for i in range(0, len(array)):
+        for j in range(i, len(array)):
+            if array[i] > array[j]:
+                array[i], array[j] = array[j], array[i]
     return array
 
-my_list = [3, 5, 4, 7, 1, 9, 15]
 
-print(bubble_sort(my_list))
+## Stress Testing
+import numpy as np
+
+def check(array):
+    for i in range(0, len(array) - 1):
+        if array[i] > array[i + 1]:
+            return False
+    return True
+
+for j in range(0, 100):
+    mylist = []
+    for i in range(0, 50):
+        mylist.append(np.random.randint(100))
+
+    if not check(bubble_sort(mylist)):
+        print("> Failed: ", mylist)
