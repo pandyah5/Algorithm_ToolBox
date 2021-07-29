@@ -11,10 +11,10 @@ def merge(f_arr, s_arr):
             s_arr = np.delete(s_arr, 0)
 
     for elem in f_arr:
-        out.append(elem)
+        out = np.append(out, elem)
 
     for elem in s_arr:
-        out.append(elem)
+        out = np.append(out, elem)
 
     return out
 
@@ -23,8 +23,8 @@ def merge_sort(arr):
     if (len(arr) <= 1):
         return arr
 
-    first_arr = arr[:int(len(arr)/2)]
-    sec_arr = arr[int(len(arr)/2):]
+    first_arr = np.array(arr[:int(len(arr)/2)])
+    sec_arr = np.array(arr[int(len(arr)/2):])
 
     first_arr = merge_sort(first_arr)
     sec_arr = merge_sort(sec_arr)
@@ -46,3 +46,6 @@ for j in range(0, 100):
 
     if not check(merge_sort(mylist)):
         print("> Failed: ", mylist)
+
+my_list = [3, 5, 6, 1, 7, 9, 8, 4, 2]
+print(merge_sort(my_list))
