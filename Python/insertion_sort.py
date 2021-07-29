@@ -24,4 +24,3 @@ for j in range(0, 100):
 
     if not check(insertion_sort(mylist)):
         print("> Failed: ", mylist)
-        

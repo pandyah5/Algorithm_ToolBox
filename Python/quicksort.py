@@ -10,8 +10,6 @@ def quicksort(array):
             i += 1
             array[i], array[j] = array[j], array[i]
     array[i + 1], array[pivot] = array[pivot], array[i + 1]
-    # array[:i + 1] = quicksort(array[:i + 1])
-    # array[i + 2:] = quicksort(array[i + 2:])
     return quicksort(array[:i + 1]) + [array[i + 1]] + quicksort(array[i + 2:])
 
 ## Stress Testing
