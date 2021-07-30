@@ -9,6 +9,6 @@ def fibonacci(num):
         num -= 1
     return num1
 
-## Testing
+## Testing the code
 for i in range(1, 11):
     print(fibonacci(i))
