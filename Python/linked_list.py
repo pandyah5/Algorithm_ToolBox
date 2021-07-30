@@ -20,14 +20,18 @@ class node:
         while(ptr.next):
             ptr = ptr.next
         ptr.next = node(value)
+        return self
 
-
+    def insert_start(self, value):
+        head = node(value)
+        head.next = self
+        return head
 
 import numpy as np
 
 head = node(10)
 ptr = head
-for i in range (9):
+for i in range (4):
     rand = np.random.randint(10)
     print("Added: ", rand)
     ptr.next = node(rand)
@@ -35,5 +39,8 @@ for i in range (9):
 
 ## Testing insert end
 head.print_list()
-head.insert_end(11)
+head = head.insert_end(11)
+head.print_list()
+
+head = head.insert_start(4)
 head.print_list()
