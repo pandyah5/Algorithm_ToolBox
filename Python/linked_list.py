@@ -15,6 +15,14 @@ class node:
     def next(self, node):
         self.next = node
 
+    def insert_end(self, value):
+        ptr = self
+        while(ptr.next):
+            ptr = ptr.next
+        ptr.next = node(value)
+
+
+
 import numpy as np
 
 head = node(10)
@@ -25,4 +33,7 @@ for i in range (9):
     ptr.next = node(rand)
     ptr = ptr.next
 
+## Testing insert end
+head.print_list()
+head.insert_end(11)
 head.print_list()
