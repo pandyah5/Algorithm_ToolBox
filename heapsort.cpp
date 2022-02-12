@@ -55,17 +55,23 @@ void heapsort(vector<int>& array, int last){
 
 int main(void){
     vector<int> array;
-    array.push_back(5);
-    array.push_back(2);
-    array.push_back(1);
-    array.push_back(4);
-    array.push_back(6);
     array.push_back(3);
+    array.push_back(5);
+    array.push_back(9);
+    array.push_back(7);
+    array.push_back(6);
+    array.push_back(4);
+    array.push_back(12);
+    array.push_back(2);
+    array.push_back(8);
+    array.push_back(1);
+    array.push_back(10);
+    array.push_back(16);
 
     print_vec(array);
 
     buildheap(array);
-    heapsort(array, array.size() - 1);
+    //heapsort(array, array.size() - 1);
 
     print_vec(array);
 
