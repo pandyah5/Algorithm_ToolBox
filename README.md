@@ -3,7 +3,7 @@ This is a repository to track my progress in ECE 345 - Introduction to algorithm
 
 # Notes
 
-### Week 1 Notes
+### Week 1 - Time Complexity Analysis
 
 - 2D Peak problem: To find a peak in an array the brute force solution takes O(n) time
 - The smart approach is to use divide and conquer, which uses the following approach:
@@ -22,7 +22,7 @@ This is a repository to track my progress in ECE 345 - Introduction to algorithm
     - T(n) = Theta(f(n)): If f(n) = Omega (n^log_b(a) + epsilon) AND a f(n/b) < c f(n), where epsilon > 0 and c < 1
 ---
 
-### Week 2 Notes
+### Week 2 - Sorting Algorithms
 - The sorting table for a quick summary is in Appendix 1.0
 - Insertion Sort: This is like sorting cards.
     - This is an in-place algorithm
@@ -65,6 +65,40 @@ This is a repository to track my progress in ECE 345 - Introduction to algorithm
     - Best case time complexity is in O(n * log(n)): When the division is nearly equal
     - Average case time complexity is in O(n*log(n)): Partially unequal division
     - Randomized quicksort uses random pivot
+
+### Week 3 - Binary Search Trees and AVL Trees
+- In a BST we have the following properties:
+    - The value of a node is greater than its left subtree and less than its right subtree
+- The time it takes to search in a BST is log(h), where h is the height of the tree.
+- Height of the tree can range between [log(n), n].
+- Insertion time and deletion time are also O(h).
+- For BST insert watch this: https://youtu.be/nVJI8sUlwSs
+- For BST delete watch this: https://youtu.be/g0mjZwYRErM
+- BST Traversals are as follows:
+    - In-order: LNR, helps in sorting
+    - Pre-order: LRN
+    - Post-order: NLR
+- To sort an array we do the following:
+    - Feed array in BST: O(n*h)
+    - BST in-order traversal: O(n)
+    - Total time: O(n*h)
+- Non recursive implementations are more efficient
+- BST's can be used to implement priority queue
+- Find minimum or maximum: O(h)
+- Finding successor or predecesor: O(h)
+    - You have two cases: Search the subtree is it exits or track back until you find a right parent or left parent respectively.
+- We use AVL trees to make height in O(log(n))
+- Balance factor = height of left subtree – height of right subtree
+- AVL trees have a balance factor of 1, 0 or -1
+- AVL uses rotations:
+    - Left rotation
+    - Right rotation
+    - Left-right rotation (Double rotations)
+    - Right-left rotation (Double rotations)
+- Insertion uses atmost two rotations: Watch this to learn insertion: https://youtu.be/CdGVkgMuq_4
+- Deletion can use upto log(n) rotations: Watch this to learn deletion: https://youtu.be/kD_xn7mZ6v8
+- Sorting in AVL tree takes O(n*log(n)
+- BST is a form a quicksort!
 
 ### Appendix
 - Appendix 1.0
