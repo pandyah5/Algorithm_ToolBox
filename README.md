@@ -121,6 +121,41 @@ This is a repository to track my progress in ECE 345 - Introduction to algorithm
 - It works in O(n) time and space complexity. Bucket sort is stable if the underlying algorithm is stable.
 - Review randomized selection algo at the end of lecture slides.
 
+### Week 5 - Hash Tables
+- On average we want Search: O(1), Insert: O(1) and Delete: O(1)
+- Heuristics
+    - For a hash function of type k mod m, m should not be a power of 2.
+    - The keys and m should not have a common divisor
+    - m should be a prime number not too close to a power of 2 or 10
+    - Take a look at the multiplication method in lecture slides.
+    - Universal hashing is a technique where the actual hashing function has a few random components to protect against intentional performance hacking.
+- Direct hashing
+    - We have as many bslots as the range of keys. In a 32 bit system thats 2^32 entries.
+    - Takes a LOT of memory, not feasible.
+    - However, you will never have any collisions.
+- Chaining
+    - We add an element to the END of the linked list for elements that map to the same space.
+    - If keys are uniformly alloted to each slot we will have n/m keys in a slot on average.
+    - n is the number of keys and m is the number of slots. alpha = n/m (load factor)
+    - The time complexity to unsuccesfully search is then O(1 + alpha/2)
+    - As long as m is in O(n), time to search is constant.
+- Perfect hashing
+    - Only works when you know all the keys beforehand, good for stuff like dictionaries, file extensions etc.
+    - Design a hash function that has no collisions
+    - The other way to implement this is using two level hash tables.
+    - The collisions in the first level are solved by making a new hash table for that slot.
+    - The initial numbetr of slots can be m = n^2, so that our probability of collision is less than 1/2\
+- Open Addressing
+    - Linear probing: h(k) = (h'(k) + i) mod m, m distinct probe sequences
+    - Quadratic probing: h(k, i) = (h’(k) + c * i + d * i^2 ) mod m, m distinct probe sequences
+    - Both of them cause localised clustering, linear probing causes the most localization
+    - Localization is not desired when assigning keys and hence we use double hashing
+    - h(k, i) = (h 1(k) + i*h 2(k)) mod m
+- Open addressing vs chaining
+    - Open addressing uses only m slots
+    - Better locality is achieved in open addressing as it avoids linked list
+    - Open addressing needs a good hashing function
+    - Open addressing sensitive to load factor. (alpha < 1)
 
 ### Appendix
 - Appendix 1.0
