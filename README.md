@@ -99,6 +99,28 @@ This is a repository to track my progress in ECE 345 - Introduction to algorithm
 - Deletion can use upto log(n) rotations: Watch this to learn deletion: https://youtu.be/kD_xn7mZ6v8
 - Sorting in AVL tree takes O(n*log(n)
 - BST is a form a quicksort!
+- Quicksort is better than AVL sort:
+    - Requires less space
+    - No special DS required
+    - Has better constants
+
+### Week 4 - More sorting
+- Perfect skip lists
+    - Has header and sentinel nodes at the start and end respectively4
+    - Search time: O(log(n))
+    - Insertion, Deletion: Breaks stuff, need to make the skip list again!
+- Randomized skip list:
+    - Search: O(log(n))
+    - Insert, delete: O(1)
+- Linear time sorting requires more space
+- Comparison sort takes minimun O(nlog(n)) time
+- Counting sort is a stable sort: Time = O(n + k) and Space = O(n + k), k is range of numbers
+- Radix sort is based on sorting LSD: Time = O(dn + dk), d is the number of digits
+    - Radix sort uses a stable sorting algorithm like counting sort
+- Bucket sort is used when input is obtained from a uniform distribution.
+- It works in O(n) time and space complexity. Bucket sort is stable if the underlying algorithm is stable.
+- Review randomized selection algo at the end of lecture slides.
+
 
 ### Appendix
 - Appendix 1.0
