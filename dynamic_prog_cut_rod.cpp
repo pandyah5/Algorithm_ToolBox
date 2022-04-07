@@ -63,7 +63,6 @@ int cut_rod_dp_bottum_up(int num){
 
 int main()
 {
-    
     int i = 0;
     for (i = 0; i < 20; i++){
         cout << price_list[i] << " ";
