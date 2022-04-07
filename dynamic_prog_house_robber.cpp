@@ -1,10 +1,10 @@
 #include <iostream>
 
-#define NUMS 10
+#define NUMS 5
 
 using namespace std;
 
-int houses[10] = {2, 5, 1, 7, 8, 2, 10, 1, 9, 4};
+int houses[10] = {2, 7, 9, 3, 1};
 int memo[10] = {-1};
 
 int max(int num1, int num2){
