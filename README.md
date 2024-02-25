@@ -212,7 +212,7 @@ We will first go over a bunch of uninformed search techniques:
 | DLS with depth D| No (If solution has a depth > D) | No (If solution has depth < D) | O(b<sup>D</sup>) | O(b * D) | https://www.educative.io/answers/what-is-depth-limited-search |
 | IDS (without cycle checking) | Yes | Yes (For length - Assuming D is incremented by 1) | O(b<sup>d</sup>) | O(b * d) | https://www.geeksforgeeks.org/iterative-deepening-searchids-iterative-deepening-depth-first-searchiddfs/ |
 | IDS (with cycle checking) | Yes | Yes (For length - Assuming D is incremented by 1) | O(b<sup>d</sup>) | O(b<sup>d</sup>) | https://www.geeksforgeeks.org/iterative-deepening-searchids-iterative-deepening-depth-first-searchiddfs/ |
-| UCS | Yes | Yes | O(b<sup>s + 1</sup>) | O(b<sup>s + 1</sup>) | Here $s = floor(C* / epsilon) + 1$ https://www.geeksforgeeks.org/uniform-cost-search-dijkstra-for-large-graphs/ |
+| UCS | Yes | Yes | O(b<sup>s + 1</sup>) | O(b<sup>s + 1</sup>) | Here $s = floor(C* / epsilon) $ https://www.geeksforgeeks.org/uniform-cost-search-dijkstra-for-large-graphs/ |
 
 In graph search algorithms we have two types of redundancy checks:
 - Path checking: 
