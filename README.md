@@ -157,7 +157,7 @@ This is a repository to track my progress in ECE 345 - Introduction to algorithm
     - Open addressing needs a good hashing function
     - Open addressing sensitive to load factor. (alpha < 1)
 
-### Search algorithms
+### Uninformed Search Algorithms
 > This section is inspired from the content taught to me by Prof. Bahar Ameri from the University of Toronto, Canada.
 
 In a graph or grid setting, we rely on certain on certain search algorithms to find a solution. Before we discuss the algorithms, we need to be familiar with the following terminologies.
@@ -214,7 +214,6 @@ We will first go over a bunch of uninformed search techniques:
 | IDS (with cycle checking) | Yes | Yes (For length - Assuming D is incremented by 1) | O(b<sup>d</sup>) | O(b<sup>d</sup>) | https://www.geeksforgeeks.org/iterative-deepening-searchids-iterative-deepening-depth-first-searchiddfs/ |
 | UCS | Yes | Yes | O(b<sup>s + 1</sup>) | O(b<sup>s + 1</sup>) | Here $s = floor(C* / epsilon) + 1$ https://www.geeksforgeeks.org/uniform-cost-search-dijkstra-for-large-graphs/ |
 
-
 In graph search algorithms we have two types of redundancy checks:
 - Path checking: 
     - Make sure that the next node being explored is not part of the current path
@@ -226,7 +225,44 @@ In graph search algorithms we have two types of redundancy checks:
     - Identifies all loops in a graph, not just the ones that stem from a single path.
     - Requires O(b<sup>d</sup>) space
 
+### Informed (Heuristic) Search Algorithms
+> This section is inspired from the content taught to me by Prof. Bahar Ameri from the University of Toronto, Canada.
 
+- Develop a domain specific heuristic function $h(n)$ such that $h(n)$ guesses the cost of getting to a goal state from a node n
+- $h(n)$ is a function only of the state of n
+- h must be defined so that $h(n)$ = 0 for every goal node
+
+There are two very important properties for heuristics in informed search:
+
+- Admissible heuristics: 
+    - h(n) <= h<sup>\*</sup>(n), where h<sup>*</sup>(n) is the actual minimal cost to reach the goal from that state
+    - An admissible heuristic never over-estimates the cost to reach the goal, i.e., it is optimistic.
+
+- Consistent heuristics: 
+    - $h(n1) <= cost(n1, n2) + h(n2)$, where $cost(n1, n2)$ is the cost to go from state n1 to n2
+    - Monotonicity implies admissibility
+    - With a monotone heuristic, the first time A* expands a node n, n must be a minimum cost solution to n.state
+
+For the informed search space, we have the following search algorithms:
+
+- Greedy Best-First Search:
+    - Use h(n) to rank the nodes on the Frontier
+    - Always expand a node with lowest h-value
+    - The solution returned by a greedy search can be very far from optimal
+
+- A star:
+    - Take into account the cost of the path as well as the heuristic
+    - We define $f(n) = g(n) + h(n)$, and always expand the node with lowest f-value on the Frontier
+
+- Iterative deepening A star:
+    - Like iterative deepening, but now the cutoff is the f-value rather than the depth
+    - At each iteration, the cutoff value is the smallest f-value of any node that exceeded the cutoff on the previous iteration.
+
+| Algorithm | Completeness | Optimality |
+| --------- | --------------- | ------------- |
+| GBFS | No | No |
+| A Star | Yes | Yes (With an admisible heuristic) |
+| IDA Star | Yes | Yes (With an admisible heuristic) |
 
 ### Appendix
 - Appendix 1.0
