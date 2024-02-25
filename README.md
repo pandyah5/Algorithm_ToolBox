@@ -157,6 +157,18 @@ This is a repository to track my progress in ECE 345 - Introduction to algorithm
     - Open addressing needs a good hashing function
     - Open addressing sensitive to load factor. (alpha < 1)
 
+### Search algorithms
+In a graph or grid setting, we rely on certain on certain search algorithms to find a solution. Before we discuss the algorithms, we need to be familiar with the following terminologies.
+- Completeness: Will the search always find a solution if a solution exists?
+- Optimality: Will the search always find the least cost solution? (when actions have costs)
+- Time complexity: What is the maximum number of nodes that can be expanded or generated?
+- Space complexity: What is the maximum number of nodes that have to be stored in memory?
+- Solution depth: Usually denoted by d.
+- Maximum branching factor: Usually denoted by b.
+
+| Algorithm | Completeness | Optimality | Time Complexity | Space Complexity | Comments |
+  
+
 ### Appendix
 - Appendix 1.0
 
