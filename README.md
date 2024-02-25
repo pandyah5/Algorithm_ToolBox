@@ -157,6 +157,113 @@ This is a repository to track my progress in ECE 345 - Introduction to algorithm
     - Open addressing needs a good hashing function
     - Open addressing sensitive to load factor. (alpha < 1)
 
+### Uninformed Search Algorithms
+> This section is inspired from the content taught to me by Prof. Bahar Ameri from the University of Toronto, Canada.
+
+In a graph or grid setting, we rely on certain on certain search algorithms to find a solution. Before we discuss the algorithms, we need to be familiar with the following terminologies.
+
+- Completeness: Will the search always find a solution if a solution exists?
+- Optimality: Will the search always find the least cost solution? (when actions have costs)
+- Time complexity: What is the maximum number of nodes that can be expanded or generated?
+- Space complexity: What is the maximum number of nodes that have to be stored in memory?
+- Solution depth: Usually denoted by d.
+- Maximum branching factor: Usually denoted by b.
+
+We will first go over a bunch of uninformed search techniques:
+
+- Breadth-First: 
+    - Explores the search tree level by level
+    - Place the children of the current node at the end of the Frontier
+    - Frontier is a queue. Always extract first element of the Frontier
+    - One can optimize BFS by stopping once the goal node is added to the queue
+
+- Depth-First Search: 
+    - Frontier is a stack, always extract first element of the Frontier
+    - An infinite graph can break completeness of a solution
+    - DFS never gaurantees the most optimal solution
+    - Here we define m as the length of the longest path in the state space
+    - The time and space complexity will be represented in terms of m
+
+- Depth-Limited Search:
+    - Truncate the DFS search by looking only at paths of length D or less
+    - No nodes with path of length greater than D is placed on the Frontier
+    - Pro: Infinite length paths are not a problem
+    - Cons: Only finds a solution if a solution of depth less than or equal to D exists
+
+- Iterative-Deepening Search:
+    - Starting at depth limit d = 0, iteratively increase the depth limit and perform a depth limited search for each depth limit
+    - Stop if a solution is found, or if the depth limited search failed without cutting off any nodes because of the depth limit
+    - If no nodes were cut off, the search examined all nodes in the state space and found no solution, hence no solution exists
+    - Note that if we apply cycle checking to IDS, the space complexity is the same as BFS
+
+- Uniform-Cost Search:
+    - Always expand the least cost node on the Frontier
+    - Uses a min heap for its frontier, all costs are $>= epsilon; > 0$
+    - Identical to BFS if all actions have the same cost
+    - All nodes with cost strictly less than C are expanded before all nodes with cost equal to C
+    - The first path found to a state is the cheapest path to that state
+    - Here we define C* as the optimum cost to the goal state
+
+| Algorithm | Completeness | Optimality | Time Complexity | Space Complexity | Resources |
+| --------- | --------------- | ------------- | -------------- | ---------------- | ------- |
+| BFS | Yes | Yes (Shortest solution path) | O(b<sup>d + 1</sup>) | O(b<sup>d + 1</sup>) | https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/ |
+| Optimized BFS | Yes | Yes (Shortest solution path) | O(b<sup>d</sup>) | O(b<sup>d</sup>) | https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/ |
+| DFS | No | No | O(b<sup>m</sup>) | O(b * m) | https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/ |
+| DLS with depth D| No (If solution has a depth > D) | No (If solution has depth < D) | O(b<sup>D</sup>) | O(b * D) | https://www.educative.io/answers/what-is-depth-limited-search |
+| IDS (without cycle checking) | Yes | Yes (For length - Assuming D is incremented by 1) | O(b<sup>d</sup>) | O(b * d) | https://www.geeksforgeeks.org/iterative-deepening-searchids-iterative-deepening-depth-first-searchiddfs/ |
+| IDS (with cycle checking) | Yes | Yes (For length - Assuming D is incremented by 1) | O(b<sup>d</sup>) | O(b<sup>d</sup>) | https://www.geeksforgeeks.org/iterative-deepening-searchids-iterative-deepening-depth-first-searchiddfs/ |
+| UCS | Yes | Yes | O(b<sup>s + 1</sup>) | O(b<sup>s + 1</sup>) | Here $s = floor(C* / epsilon) + 1$ https://www.geeksforgeeks.org/uniform-cost-search-dijkstra-for-large-graphs/ |
+
+In graph search algorithms we have two types of redundancy checks:
+- Path checking: 
+    - Make sure that the next node being explored is not part of the current path
+    - Does not increase space or time complexity of the algo
+    - Helps algorithms identify circular loops in the same path
+- Cycle checking: 
+    - Keep track of the all nodes previously expanded during the search using a list called the closed list.
+    - Adds to the space complexity
+    - Identifies all loops in a graph, not just the ones that stem from a single path.
+    - Requires O(b<sup>d</sup>) space
+
+### Informed (Heuristic) Search Algorithms
+> This section is inspired from the content taught to me by Prof. Bahar Ameri from the University of Toronto, Canada.
+
+- Develop a domain specific heuristic function $h(n)$ such that $h(n)$ guesses the cost of getting to a goal state from a node n
+- $h(n)$ is a function only of the state of n
+- h must be defined so that $h(n)$ = 0 for every goal node
+
+There are two very important properties for heuristics in informed search:
+
+- Admissible heuristics: 
+    - h(n) <= h<sup>\*</sup>(n), where h<sup>*</sup>(n) is the actual minimal cost to reach the goal from that state
+    - An admissible heuristic never over-estimates the cost to reach the goal, i.e., it is optimistic.
+
+- Consistent heuristics: 
+    - $h(n1) <= cost(n1, n2) + h(n2)$, where $cost(n1, n2)$ is the cost to go from state n1 to n2
+    - Monotonicity implies admissibility
+    - With a monotone heuristic, the first time A* expands a node n, n must be a minimum cost solution to n.state
+
+For the informed search space, we have the following search algorithms:
+
+- Greedy Best-First Search:
+    - Use h(n) to rank the nodes on the Frontier
+    - Always expand a node with lowest h-value
+    - The solution returned by a greedy search can be very far from optimal
+
+- A star:
+    - Take into account the cost of the path as well as the heuristic
+    - We define $f(n) = g(n) + h(n)$, and always expand the node with lowest f-value on the Frontier
+
+- Iterative deepening A star:
+    - Like iterative deepening, but now the cutoff is the f-value rather than the depth
+    - At each iteration, the cutoff value is the smallest f-value of any node that exceeded the cutoff on the previous iteration.
+
+| Algorithm | Completeness | Optimality |
+| --------- | --------------- | ------------- |
+| GBFS | No | No |
+| A Star | Yes | Yes (With an admisible heuristic) |
+| IDA Star | Yes | Yes (With an admisible heuristic) |
+
 ### Appendix
 - Appendix 1.0
 
