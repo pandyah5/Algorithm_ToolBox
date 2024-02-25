@@ -158,7 +158,10 @@ This is a repository to track my progress in ECE 345 - Introduction to algorithm
     - Open addressing sensitive to load factor. (alpha < 1)
 
 ### Search algorithms
+> This section is inspired from the content taught to me by Prof. Bahar Ameri from the University of Toronto, Canada.
+
 In a graph or grid setting, we rely on certain on certain search algorithms to find a solution. Before we discuss the algorithms, we need to be familiar with the following terminologies.
+
 - Completeness: Will the search always find a solution if a solution exists?
 - Optimality: Will the search always find the least cost solution? (when actions have costs)
 - Time complexity: What is the maximum number of nodes that can be expanded or generated?
@@ -166,8 +169,64 @@ In a graph or grid setting, we rely on certain on certain search algorithms to f
 - Solution depth: Usually denoted by d.
 - Maximum branching factor: Usually denoted by b.
 
-| Algorithm | Completeness | Optimality | Time Complexity | Space Complexity | Comments |
-  
+We will first go over a bunch of uninformed search techniques:
+
+- Breadth-First: 
+    - Explores the search tree level by level
+    - Place the children of the current node at the end of the Frontier
+    - Frontier is a queue. Always extract first element of the Frontier
+    - One can optimize BFS by stopping once the goal node is added to the queue
+
+- Depth-First Search: 
+    - Frontier is a stack, always extract first element of the Frontier
+    - An infinite graph can break completeness of a solution
+    - DFS never gaurantees the most optimal solution
+    - Here we define m as the length of the longest path in the state space
+    - The time and space complexity will be represented in terms of m
+
+- Depth-Limited Search:
+    - Truncate the DFS search by looking only at paths of length D or less
+    - No nodes with path of length greater than D is placed on the Frontier
+    - Pro: Infinite length paths are not a problem
+    - Cons: Only finds a solution if a solution of depth less than or equal to D exists
+
+- Iterative-Deepening Search:
+    - Starting at depth limit d = 0, iteratively increase the depth limit and perform a depth limited search for each depth limit
+    - Stop if a solution is found, or if the depth limited search failed without cutting off any nodes because of the depth limit
+    - If no nodes were cut off, the search examined all nodes in the state space and found no solution, hence no solution exists
+    - Note that if we apply cycle checking to IDS, the space complexity is the same as BFS
+
+- Uniform-Cost Search:
+    - Always expand the least cost node on the Frontier
+    - Uses a min heap for its frontier, all costs are $>= epsilon; > 0$
+    - Identical to BFS if all actions have the same cost
+    - All nodes with cost strictly less than C are expanded before all nodes with cost equal to C
+    - The first path found to a state is the cheapest path to that state
+    - Here we define C* as the optimum cost to the goal state
+
+| Algorithm | Completeness | Optimality | Time Complexity | Space Complexity | Resources |
+| --------- | --------------- | ------------- | -------------- | ---------------- | ------- |
+| BFS | Yes | Yes (Shortest solution path) | O(b<sup>d + 1</sup>) | O(b<sup>d + 1</sup>) | https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/ |
+| Optimized BFS | Yes | Yes (Shortest solution path) | O(b<sup>d</sup>) | O(b<sup>d</sup>) | https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/ |
+| DFS | No | No | O(b<sup>m</sup>) | O(b * m) | https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/ |
+| DLS with depth D| No (If solution has a depth > D) | No (If solution has depth < D) | O(b<sup>D</sup>) | O(b * D) | https://www.educative.io/answers/what-is-depth-limited-search |
+| IDS (without cycle checking) | Yes | Yes (For length - Assuming D is incremented by 1) | O(b<sup>d</sup>) | O(b * d) | https://www.geeksforgeeks.org/iterative-deepening-searchids-iterative-deepening-depth-first-searchiddfs/ |
+| IDS (with cycle checking) | Yes | Yes (For length - Assuming D is incremented by 1) | O(b<sup>d</sup>) | O(b<sup>d</sup>) | https://www.geeksforgeeks.org/iterative-deepening-searchids-iterative-deepening-depth-first-searchiddfs/ |
+| UCS | Yes | Yes | O(b<sup>s + 1</sup>) | O(b<sup>s + 1</sup>) | Here $s = floor(C* / epsilon) + 1$ https://www.geeksforgeeks.org/uniform-cost-search-dijkstra-for-large-graphs/ |
+
+
+In graph search algorithms we have two types of redundancy checks:
+- Path checking: 
+    - Make sure that the next node being explored is not part of the current path
+    - Does not increase space or time complexity of the algo
+    - Helps algorithms identify circular loops in the same path
+- Cycle checking: 
+    - Keep track of the all nodes previously expanded during the search using a list called the closed list.
+    - Adds to the space complexity
+    - Identifies all loops in a graph, not just the ones that stem from a single path.
+    - Requires O(b<sup>d</sup>) space
+
+
 
 ### Appendix
 - Appendix 1.0
